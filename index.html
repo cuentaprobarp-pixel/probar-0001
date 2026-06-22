@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Botánico — Nuestra Carta</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --verde:       #3d4f38;
+      --verde-light: #5a7052;
+      --verde-pale:  #e8ede5;
+      --marron:      #6b5744;
+      --marron-light:#8b7360;
+      --marron-pale: #f0e8de;
+      --crema:       #f5f0e8;
+      --crema-dark:  #ede5d8;
+      --blanco:      #fdfbf8;
+      --texto:       #2e2820;
+      --texto-suave: #6b6358;
+      --border:      #d8cfc4;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      background: var(--crema);
+      color: var(--texto);
+      line-height: 1.7;
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--verde);
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 50% 110%, rgba(107,87,68,0.4) 0%, transparent 70%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 8vw, 5rem);
+      color: var(--crema);
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      opacity: 0.92;
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 14vw, 8rem);
+      font-weight: 300;
+      color: var(--crema);
+      line-height: 1.0;
+    }
+    .hero-title em {
+      font-size: 0.42em;
+      display: block;
+      letter-spacing: 0.25em;
+      font-style: normal;
+      font-weight: 300;
+      color: rgba(245,240,232,0.6);
+      text-transform: uppercase;
+      margin-bottom: 0.2em;
+    }
+    .hero-address {
+      font-size: 0.78rem;
+      letter-spacing: 0.15em;
+      color: rgba(245,240,232,0.5);
+      text-transform: uppercase;
+      margin-top: 0.5rem;
+    }
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(245,240,232,0.45);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      animation: fadeInUp 2s ease 1s both;
+    }
+    .scroll-hint::after {
+      content: '';
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, rgba(245,240,232,0.5), transparent);
+    }
+    @keyframes fadeInUp { from { opacity:0; transform:translateX(-50%) translateY(10px);} to {opacity:1; transform:translateX(-50%) translateY(0);} }
+
+    /* FILOSOFÍA */
+    .filosofia {
+      background: var(--blanco);
+      padding: 4rem 2rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .filosofia p { max-width: 580px; margin: 0 auto 0.75rem; font-size: 1rem; }
+    .filosofia strong { font-weight: 500; color: var(--verde); }
+    .filosofia .sub { font-size: 0.85rem; color: var(--texto-suave); margin-bottom: 2rem; }
+    .leche-badge {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 1rem;
+      padding: 1.25rem 2rem;
+      background: var(--verde-pale);
+      border-radius: 1rem;
+      border: 1px solid rgba(61,79,56,0.15);
+    }
+    .leche-badge > span {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--verde);
+      font-weight: 500;
+    }
+    .leche-opts { display: flex; gap: 0.6rem; flex-wrap: wrap; justify-content: center; }
+    .leche-opts span {
+      padding: 0.3rem 0.85rem;
+      background: var(--blanco);
+      border-radius: 2rem;
+      font-size: 0.8rem;
+      color: var(--texto-suave);
+      border: 1px solid var(--border);
+    }
+
+    /* NAV */
+    .cat-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--blanco);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding: 0 0.5rem;
+    }
+    .cat-nav::-webkit-scrollbar { display: none; }
+    .cat-btn {
+      flex-shrink: 0;
+      padding: 1rem 1rem;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--texto-suave);
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+      white-space: nowrap;
+    }
+    .cat-btn:hover { color: var(--marron); }
+    .cat-btn.active { color: var(--verde); border-bottom-color: var(--verde); font-weight: 500; }
+
+    /* MENU */
+    .menu-main { max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 6rem; }
+    .menu-section { display: none; animation: fadeUp 0.35s ease; }
+    .menu-section.active { display: block; }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(10px);} to {opacity:1; transform:translateY(0);} }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 6vw, 3.5rem);
+      font-weight: 300;
+      color: var(--verde);
+      margin-bottom: 2.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .subsection {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--marron-light);
+      margin: 2.5rem 0 1.25rem;
+    }
+
+    /* GRID */
+    .items-grid {
+      display: grid;
+      gap: 1px;
+      background: var(--border);
+      border-radius: 0.75rem;
+      overflow: hidden;
+      margin-bottom: 0.5rem;
+    }
+    @media (min-width: 640px) { .items-grid { grid-template-columns: 1fr 1fr; } }
+
+    .item-card {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1.25rem;
+      padding: 1.25rem 1.5rem;
+      background: var(--blanco);
+      transition: background 0.2s;
+    }
+    .item-card:hover { background: var(--marron-pale); }
+    .item-card.featured { background: var(--verde-pale); }
+    .item-card.featured:hover { background: #dde7da; }
+
+    .item-info { flex: 1; }
+    .item-info h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: var(--texto);
+      line-height: 1.3;
+      margin-bottom: 0.25rem;
+    }
+    .item-card.featured .item-info h3 { color: var(--verde); }
+    .item-info p { font-size: 0.82rem; color: var(--texto-suave); line-height: 1.6; font-weight: 300; }
+
+    .tag {
+      display: inline-block;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.58rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      padding: 0.15rem 0.5rem;
+      background: var(--marron-pale);
+      color: var(--marron);
+      border-radius: 2rem;
+      vertical-align: middle;
+      margin-left: 0.35rem;
+      border: 1px solid rgba(107,87,68,0.15);
+    }
+    .price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: var(--marron);
+      white-space: nowrap;
+      flex-shrink: 0;
+      padding-top: 0.1rem;
+    }
+
+    /* EXTRAS */
+    .extras-box {
+      margin-top: 2.5rem;
+      padding: 1.75rem 1.75rem;
+      background: var(--blanco);
+      border-radius: 0.75rem;
+      border: 1px solid var(--border);
+    }
+    .extras-box .subsection { margin-top: 0; }
+    .extra-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--crema-dark);
+      font-size: 0.875rem;
+      color: var(--texto-suave);
+    }
+    .extra-item:last-child { border-bottom: none; }
+    .extra-item span:last-child { font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: var(--marron); }
+
+    /* FOOTER */
+    .footer {
+      background: var(--verde);
+      padding: 4rem 2rem;
+      text-align: center;
+      color: rgba(245,240,232,0.6);
+    }
+    .logo-footer {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.5rem;
+      font-weight: 300;
+      color: var(--crema);
+      margin-bottom: 1rem;
+      opacity: 0.85;
+    }
+    .footer p { font-size: 0.85rem; letter-spacing: 0.08em; margin-bottom: 0.2rem; }
+    .footer .muted { font-size: 0.75rem; opacity: 0.45; letter-spacing: 0.12em; }
+
+    @media (max-width: 600px) {
+      .item-card { padding: 1rem 1.1rem; gap: 1rem; }
+      .item-info h3 { font-size: 1.1rem; }
+      .price { font-size: 1rem; }
+      .menu-main { padding: 2rem 1rem 5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-content">
+      <div class="logo">b.</div>
+      <h1 class="hero-title"><em>nuestra</em>carta</h1>
+      <p class="hero-address">O'Higgins 978, Concepción · Frente a tribunales</p>
+    </div>
+    <div class="scroll-hint">scroll</div>
+  </header>
+
+  <!-- FILOSOFÍA -->
+  <section class="filosofia">
+    <p>Trabajamos exclusivamente con <strong>syrups sin azúcar</strong> y <strong>leches sin lactosa</strong>.</p>
+    <p class="sub">Colaboramos con productores locales y tostadurías de Concepción, apoyando la economía de la zona y priorizando ingredientes naturales de mejor calidad.</p>
+    <div class="leche-badge">
+      <span>Elige tu leche sin costo adicional</span>
+      <div class="leche-opts">
+        <span>Descremada</span>
+        <span>Entera</span>
+        <span>Vegetal</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- NAV -->
+  <nav class="cat-nav" id="catNav">
+    <button class="cat-btn active" data-cat="espresso">Espresso</button>
+    <button class="cat-btn" data-cat="leche">Con Leche</button>
+    <button class="cat-btn" data-cat="frio">Café Frío</button>
+    <button class="cat-btn" data-cat="matcha">Matcha & Chai</button>
+    <button class="cat-btn" data-cat="helado">Con Helado</button>
+    <button class="cat-btn" data-cat="infusiones">Infusiones</button>
+    <button class="cat-btn" data-cat="smoothies">Smoothies</button>
+    <button class="cat-btn" data-cat="especiales">Especiales</button>
+    <button class="cat-btn" data-cat="dulces">Dulces</button>
+    <button class="cat-btn" data-cat="comida">Comida</button>
+  </nav>
+
+  <main class="menu-main">
+
+    <!-- ESPRESSO -->
+    <section class="menu-section active" id="espresso">
+      <h2 class="section-title">Espresso</h2>
+      <div class="items-grid">
+        <div class="item-card"><div class="item-info"><h3>Espresso</h3><p>Doble carga de café intenso</p></div><span class="price">$2.700</span></div>
+        <div class="item-card"><div class="item-info"><h3>Americano</h3><p>Doble carga de espresso con agua caliente</p></div><span class="price">$2.900</span></div>
+        <div class="item-card"><div class="item-info"><h3>Macchiato</h3><p>Espresso intenso suavizado con un toque de leche vaporizada</p></div><span class="price">$3.150</span></div>
+        <div class="item-card"><div class="item-info"><h3>Café Filtrado</h3><p>Café extraído manualmente en V60, suave y aromático</p></div><span class="price">$3.100</span></div>
+        <div class="item-card"><div class="item-info"><h3>Cold Brew</h3><p>Café extraído en frío por 16 horas</p></div><span class="price">$3.490</span></div>
+        <div class="item-card"><div class="item-info"><h3>Cold Brew Sabores <span class="tag">sabores</span></h3><p>Nuestro cold brew con sabor a elección</p></div><span class="price">$3.900</span></div>
+        <div class="item-card"><div class="item-info"><h3>Espresso Tonic</h3><p>Doble carga de espresso frío con agua tónica</p></div><span class="price">$3.800</span></div>
+        <div class="item-card"><div class="item-info"><h3>Espresso Tonic <span class="tag">pequeño</span></h3><p>Doble carga de espresso frío con agua tónica</p></div><span class="price">$3.250</span></div>
+        <div class="item-card featured"><div class="item-info"><h3>Espresso Pink Tonic</h3><p>Espresso frío con tónica rosada</p></div><span class="price">$5.200</span></div>
+        <div class="item-card featured"><div class="item-info"><h3>Espresso Naranja</h3><p>Doble carga de espresso frío con jugo de naranja natural · con pink tonic +$500</p></div><span class="price">$4.200</span></div>
+      </div>
+    </section>
+
+    <!-- CON LECHE -->
+    <section class="menu-section" id="leche">
+      <h2 class="section-title">Con Leche</h2>
+      <div class="items-grid">
+        <div class="item-card"><div class="item-info"><h3>Latte</h3><p>Espresso suave con leche vaporizada y textura sedosa</p></div><span class="price">$4.300</span></div>
+        <div class="item-card"><div class="item-info"><h3>Cappuccino</h3><p>Espresso suave con leche vaporizada y espuma aireada</p></div><span class="price">$3.900</span></div>
+        <div class="item-card"><div class="item-info"><h3>Flat White</h3><p>Café más intenso con menos espuma</p></div><span class="price">$3.450</span></div>
+        <div class="item-card"><div class="item-info"><h3>Latte Sabores <span class="tag">sin azúcar</span></h3><p>Vainilla · Caramelo · Avellana · Chai · Pumpkin Spice</p></div><span class="price">$4.700</span></div>
+        <div class="item-card"><div class="item-info"><h3>Mocha</h3><p>Latte con chocolate negro 63% cacao o 60% sin azúcar, con monedas de chocolate</p></div><span class="price">$4.450</span></div>
+        <div class="item-card"><div class="item-info"><h3>Mocha Blanco</h3><p>Latte con chocolate blanco, preparado con monedas de chocolate</p></div><span class="price">$4.500</span></div>
+        <div class="item-card"><div class="item-info"><h3>Chocolate Caliente</h3><p>Leche caliente con monedas de chocolate 63% o sin azúcar 60% cacao</p></div><span class="price">$4.450</span></div>
+        <div class="item-card featured"><div class="item-info"><h3>Latte y Crema de Avellanas</h3><p>Latte con borde de crema de avellanas tipo Nutella vegana, sin azúcar y sin gluten</p></div><span class="price">$5.250</span></div>
+        <div class="item-card featured"><div class="item-info"><h3>Pistacho y Chocolate</h3><p>Mocha con borde de crema de pistacho y trozos de pistacho natural</p></div><span class="price">$5.650</span></div>
+      </div>
+    </section>
+
+    <!-- CAFÉ FRÍO -->
+    <section class="menu-section" id="frio">
+      <h2 class="section-title">Café Frío</h2>
+      <h3 class="subsection">Ice Latte</h3>
+      <div class="items-grid">
+        <div class="item-card"><div class="item-info"><h3>Ice Latte</h3><p>Espresso con leche a elección y hielo</p></div><span class="price">$4.450</span></div>
+        <div class="item-card"><div class="item-info"><h3>Ice Latte Sabores <span class="tag">sabores</span></h3><p>Espresso con leche y syrup sin azúcar a elección</p></div><span class="price">$4.850</span></div>
+      </div>
+      <h3 class="subsection">Cold Foam</h3>
+      <div class="items-grid">
+        <div class="item-card"><div class="item-info"><h3>Latte Cold Foam</h3><p>Latte terminado con suave crema, servido en frío</p></div><span class="price">$4.900</span></div>
+        <div class="item-card"><div class="item-info"><h3>Matcha Latte Cold Foam</h3><p>Matcha con leche terminado con suave crema, en frío</p></div><span class="price">$5.400</span></div>
+        <div class="item-card"><div class="item-info"><h3>Chai Latte Cold Foam</h3><p>Chai latte con leche, terminado con suave crema, en frío</p></div><span class="price">$5.300</span></div>
+      </div>
+      <h3 class="subsection">Golden</h3>
+      <div class="items-grid">
+        <div class="item-card"><div class="item-info"><h3>Golden Milk</h3><p>Infusión de cúrcuma y especias con leche a elección</p></div><span class="price">$4.250</span></div>
+        <div class="item-card"><div class="item-info"><h3>Dirty Golden Latte</h3><p>Golden milk con shot de espresso</p></div><span class="price">$4.750</span></div>
+      </div>
+    </section>
+
+    <!-- MATCHA & CHAI -->
+    <section class="menu-section" id="matcha">
+      <h2 class="section-title">Matcha & Chai</h2>
+      <h3 class="subsection">Chai</h3>
+      <div class="items-grid">
+        <div class="item-card"><div class="item-info"><h3>Chai</h3><p>Infusión de especias</p></div><span class="price">$3.900</span></div>
+        <div class="item-card"><div class="item-info"><h3>Chai Latte</h3><p>Chai con leche a elección</p></div><span class="price">$4.250</span></div>
+        <div class="item-card"><div class="item-info"><h3>Dirty Chai</h3><p>Chai latte con shot de espresso</p></div><span class="price">$4.650</span></div>
+      </div>
+      <h3 class="subsection">Matcha</h3>
+      <div class="items-grid">
+        <div class="item-card"><div class="item-info"><h3>Matcha</h3><p>Té verde japonés</p></div><span class="price">$4.800</span></div>
+        <div class="item-card"><div class="item-info"><h3>Matcha Latte</h3><p>Té verde japonés con leche a elección</p></div><span class="price">$5.200</span></div>
+        <div class="item-card"><div class="item-info"><h3>Matcha Latte Frío con Fruta</h3><p>Matcha con leche y fruta natural</p></div><span class="price">$5.600</span></div>
+        <div class="item-card"><div class="item-info"><h3>Matcha Latte Sabores <span class="tag">sabores</span></h3><p>Matcha con leche y syrup sin azúcar a elección</p></div><span class="price">$5.600</span></div>
+        <div class="item-card"><div class="item-info"><h3>Matcha Naranja Frío</h3><p>Matcha frío con jugo de naranja natural</p></div><span class="price">$5.600</span></div>
+        <div class="item-card featured"><div class="item-info"><h3>Dirty Matcha Latte</h3><p>Matcha latte con espresso</p></div><span class="price">$5.700</span></div>
+      </div>
+    </section>
+
+    <!-- CON HELADO -->
+    <section class="menu-section" id="helado">
+      <h2 class="section-title">Con Helado</h2>
+      <div class="items-grid">
+        <div class="item-card"><div class="item-info"><h3>Affogato Espresso</h3><p>Helado de vainilla con shot de espresso caliente</p></div><span class="price">$4.800</span></div>
+        <div class="item-card"><div class="item-info"><h3>Affogato Matcha</h3><p>Helado de vainilla con matcha caliente</p></div><span class="price">$5.450</span></div>
+        <div class="item-card featured"><div class="item-info"><h3>Café Helado Tradicional</h3><p>Helado de vainilla con espresso, leche y crema batida opcional</p></div><span class="price">$5.800</span></div>
+      </div>
+    </section>
+
+    <!-- INFUSIONES -->
+    <section class="menu-section" id="infusiones">
+      <h2 class="section-title">Infusiones & Fríos</h2>
+      <div class="items-grid">
+        <div class="item-card"><div class="item-info"><h3>Té Variedades</h3><p>Earl Grey · Té negro con berries · Té verde · English Breakfast</p></div><span class="price">$2.900</span></div>
+        <div class="item-card"><div class="item-info"><h3>Ice Tea</h3><p>Botánico (English Breakfast con naranja y limón) · Té negro con berries · Infusiones</p></div><span class="price">$2.900</span></div>
+      </div>
+    </section>
+
+    <!-- SMOOTHIES -->
+    <section class="menu-section" id="smoothies">
+      <h2 class="section-title">Smoothies & Bebidas</h2>
+      <h3 class="subsection">Bebidas</h3>
+      <div class="items-grid">
+        <div class="item-card"><div class="item-info"><h3>Jugos Naturales</h3></div><span class="price">$3.850</span></div>
+        <div class="item-card"><div class="item-info"><h3>Limonadas</h3></div><span class="price">$3.450</span></div>
+        <div class="item-card"><div class="item-info"><h3>Kombucha</h3></div><span class="price">$3.450</span></div>
+        <div class="item-card"><div class="item-info"><h3>Agua Mineral con/sin gas</h3><p>Vital</p></div><span class="price">$2.200</span></div>
+      </div>
+      <h3 class="subsection">Smoothies</h3>
+      <div class="items-grid">
+        <div class="item-card"><div class="item-info"><h3>Smoothie</h3><p>Elige tu leche y dos sabores: Frutilla · Manjar · Plátano · Chocolate · Mantequilla de Maní · Mango · Nutella Vegana · Oreo</p></div><span class="price">$4.900</span></div>
+        <div class="item-card"><div class="item-info"><h3>Proteico</h3><p>Leche a elección + proteína whey o vegana + dos sabores · con leche proteica +$700</p></div><span class="price">$5.550</span></div>
+        <div class="item-card"><div class="item-info"><h3>Frappuccino</h3><p>Batido frío con leche a elección y espresso</p></div><span class="price">$4.850</span></div>
+        <div class="item-card"><div class="item-info"><h3>Frappuccino Sabores <span class="tag">sabores</span></h3><p>Batido frío con leche, espresso y syrup sin azúcar a elección</p></div><span class="price">$5.250</span></div>
+      </div>
+    </section>
+
+    <!-- ESPECIALES -->
+    <section class="menu-section" id="especiales">
+      <h2 class="section-title">Especiales Botánico</h2>
+      <div class="items-grid">
+        <div class="item-card featured"><div class="item-info"><h3>Matchai</h3><p>Base de chai latte, seguido de matcha y terminado con cremoso cold foam. Servido en frío.</p></div><span class="price">$5.900</span></div>
+        <div class="item-card featured"><div class="item-info"><h3>Tiramisú Cold Foam</h3><p>Ice latte o matcha latte terminado con suave crema sabor tiramisú y galleta de champaña</p></div><span class="price">$5.900</span></div>
+      </div>
+      <div class="extras-box">
+        <h3 class="subsection">Extras</h3>
+        <div class="extra-item"><span>Leche proteica</span><span>$700</span></div>
+        <div class="extra-item"><span>Scoop de proteína whey o vegana</span><span>$1.250</span></div>
+        <div class="extra-item"><span>Borde crema de pistacho y trozo de pistacho</span><span>$1.150</span></div>
+        <div class="extra-item"><span>Borde crema de avellanas</span><span>$950</span></div>
+        <div class="extra-item"><span>Crema batida</span><span>$800</span></div>
+        <div class="extra-item"><span>Extra leche</span><span>$600</span></div>
+        <div class="extra-item"><span>Shot de espresso</span><span>$800</span></div>
+        <div class="extra-item"><span>Syrup sin azúcar</span><span>$700</span></div>
+      </div>
+    </section>
+
+    <!-- DULCES -->
+    <section class="menu-section" id="dulces">
+      <h2 class="section-title">Dulces</h2>
+      <h3 class="subsection">Dulces Crudi-Veganos sin Azúcar</h3>
+      <div class="items-grid">
+        <div class="item-card"><div class="item-info"><h3>Cheesecake de Chocolate</h3><p>Relleno cremoso a base de castañas de cajú</p></div><span class="price">$4.200</span></div>
+        <div class="item-card"><div class="item-info"><h3>Cheesecake Frutos Rojos</h3><p>Cremoso relleno a base de castañas de cajú</p></div><span class="price">$4.200</span></div>
+        <div class="item-card"><div class="item-info"><h3>Barritas</h3><p>Snickers de maní o almendra</p></div><span class="price">$2.600</span></div>
+      </div>
+      <h3 class="subsection">Bombones Veganos sin Azúcar</h3>
+      <div class="items-grid">
+        <div class="item-card"><div class="item-info"><h3>Cookies & Cream</h3><p>Bombón tipo oreo sin azúcar</p></div><span class="price">$2.400</span></div>
+        <div class="item-card"><div class="item-info"><h3>Manjar Nuez y Coco</h3><p>Bombón de manjar endulzado con alulosa, coco rallado y nueces</p></div><span class="price">$2.400</span></div>
+        <div class="item-card"><div class="item-info"><h3>Mantequilla de Maní y Coco</h3><p>Bombón de mantequilla de maní 100% natural y coco rallado</p></div><span class="price">$2.400</span></div>
+        <div class="item-card"><div class="item-info"><h3>Ferrero Rawcher</h3><p>Bombón de dátiles, avellana europea, crema de avellana sin azúcar y cacao</p></div><span class="price">$2.400</span></div>
+        <div class="item-card"><div class="item-info"><h3>Crocantes</h3><p>Galleta crocante de frutos secos y semillas</p></div><span class="price">$1.100</span></div>
+        <div class="item-card"><div class="item-info"><h3>Alfajores Chocolate Manjar</h3><p>Galletas de chocolate, relleno de manjar y cubierta de chocolate negro</p></div><span class="price">$2.400</span></div>
+      </div>
+      <h3 class="subsection">Tortas y Dulces</h3>
+      <div class="items-grid">
+        <div class="item-card featured"><div class="item-info"><h3>Torta Amor</h3><p>Hojarascas rellenas de manjar, crema chantilly y frambuesas naturales</p></div><span class="price">$5.290</span></div>
+        <div class="item-card"><div class="item-info"><h3>New York Cookies</h3><p>Galletas crujientes con suave relleno — consulta por sabor del día</p></div><span class="price">$4.900</span></div>
+      </div>
+      <h3 class="subsection">Croissants Rellenos</h3>
+      <div class="items-grid">
+        <div class="item-card"><div class="item-info"><h3>Crema de Pistacho</h3><p>Relleno de crema de pistacho y pistachos en trozos</p></div><span class="price">$4.900</span></div>
+        <div class="item-card"><div class="item-info"><h3>Crema de Avellanas y Frutillas</h3><p>Crema de avellanas y cacao vegano sin azúcar, con frutillas frescas</p></div><span class="price">$4.900</span></div>
+      </div>
+    </section>
+
+    <!-- COMIDA -->
+    <section class="menu-section" id="comida">
+      <h2 class="section-title">Comida</h2>
+      <h3 class="subsection">Açaí Bowl</h3>
+      <div class="items-grid">
+        <div class="item-card featured"><div class="item-info"><h3>Açaí Bowl</h3><p>Base de açaí natural sin azúcar añadida, con frutilla, plátano, arándanos y granola endulzada con miel</p></div><span class="price">$7.500</span></div>
+      </div>
+      <h3 class="subsection">Sándwich Focaccia</h3>
+      <div class="items-grid">
+        <div class="item-card"><div class="item-info"><h3>Focaccia de Jamón Serrano</h3><p>Jamón serrano, verduras asadas, rúcula fresca y pesto</p></div><span class="price">$6.900</span></div>
+        <div class="item-card"><div class="item-info"><h3>Focaccia Veggie</h3><p>Tomates deshidratados en aceite de oliva, verduras asadas, rúcula fresca y pesto</p></div><span class="price">$6.900</span></div>
+      </div>
+      <h3 class="subsection">Sándwich de Masa Madre</h3>
+      <div class="items-grid">
+        <div class="item-card"><div class="item-info"><h3>Sándwich de Salmón Ahumado</h3><p>Hogaza multi semillas, queso crema, salmón ahumado, rúcula fresca y pesto</p></div><span class="price">$6.550</span></div>
+        <div class="item-card"><div class="item-info"><h3>Sándwich de Ricotta y Tomate</h3><p>Hogaza multi semillas, ricotta, tomates cherry, albahaca fresca en aceite de oliva y pesto</p></div><span class="price">$6.450</span></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="logo-footer">b.</div>
+    <p>O'Higgins 978, Concepción</p>
+    <p class="muted">Frente a tribunales</p>
+  </footer>
+
+  <script>
+    (function () {
+      var buttons = document.querySelectorAll('.cat-btn');
+      var sections = document.querySelectorAll('.menu-section');
+      var nav = document.getElementById('catNav');
+
+      function activate(cat) {
+        buttons.forEach(function(b) {
+          b.classList.toggle('active', b.dataset.cat === cat);
+        });
+        sections.forEach(function(s) {
+          s.classList.toggle('active', s.id === cat);
+        });
+        var activeBtn = nav.querySelector('.cat-btn.active');
+        if (activeBtn) {
+          activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+        var navBottom = nav.getBoundingClientRect().bottom + window.scrollY;
+        window.scrollTo({ top: navBottom - nav.offsetHeight, behavior: 'smooth' });
+      }
+
+      buttons.forEach(function(btn) {
+        btn.addEventListener('click', function() { activate(btn.dataset.cat); });
+      });
+    })();
+  </script>
+</body>
+</html>
